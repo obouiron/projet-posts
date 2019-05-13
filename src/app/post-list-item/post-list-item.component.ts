@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../models/post.models';
+import { PostsService } from '../services/posts.service';
 
 @Component({
     selector: 'app-postlistitem',
@@ -6,23 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./post-list-item.component.scss']
 })
 export class PostListItemComponent implements OnInit {
-    @Input() title: string;
-    @Input() content: string;
-    @Input() loveIts: number;
-    // tslint:disable-next-line: variable-name
-    @Input() created_at: Date;
+    @Input() post: Post;
 
-    constructor() { }
+    constructor(private postsService: PostsService) { }
 
     ngOnInit() {
     }
 
     loveIt() {
-        ++this.loveIts;
+        this.postsService.addLoveIt(this.post);
     }
 
     dontLoveIt() {
-        --this.loveIts;
+        this.postsService.removeLoveIt(this.post);
     }
 
     getColor() {
@@ -36,9 +34,14 @@ export class PostListItemComponent implements OnInit {
     }
 
     hasMoreLoveIt(): boolean {
-        return this.loveIts > 0;
+        return this.post.loveIts > 0;
     }
+
     hasMoreDontLoveIt(): boolean {
-        return this.loveIts < 0;
+        return this.post.loveIts < 0;
+    }
+
+    deletePost() {
+        this.postsService.removePost(this.post);
     }
 }

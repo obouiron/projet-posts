@@ -1,8 +1,9 @@
 <li [ngClass]="{'list-group-item': true,
                 'list-group-item-success': hasMoreLoveIt(),
                 'list-group-item-danger': hasMoreDontLoveIt()}">
-    <h4 [ngStyle]="{color: getColor()}">{{ title }} ({{created_at| date: 'dd/MM/yyyy, HH:mm'}})</h4>
-    <p [ngStyle]="{color: getColor()}">{{ content }}</p>
+    <h4 [ngStyle]="{color: getColor()}">{{ post.title }} ({{post.created_at| date: 'dd/MM/yyyy, HH:mm'}})</h4>
+    <p [ngStyle]="{color: getColor()}">{{ post.content }}</p>
     <button class="btn btn-success" (click)="loveIt()">Love It!</button>
     <button class="btn btn-danger" (click)="dontLoveIt()">Don't love it!</button>
+    <button class="btn btn-danger" (click)="deletePost()">Supprimer le post</button>
 </li>
